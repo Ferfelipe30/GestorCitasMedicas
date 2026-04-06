@@ -13,10 +13,10 @@ const getUsuarios = async (req, res) => {
 //GET usuario por ID
 const getUsuarioById = async (req, res) => {
     try {
-        const { usuario_id } = req.params;
+        const { id } = req.params;
         const result = await pool.query(
             'SELECT usuario_id, username, password, rol FROM usuarios WHERE usuario_id = $1',
-            [usuario_id]
+            [id]
         );
         if (result.rows.length === 0)
             return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -49,12 +49,12 @@ const createUsuario = async (req, res) => {
 //PUT actualizar usuario
 const updateUsuario = async (req, res) => {
     try {
-        const { usuario_id } = req.params;
+        const { id } = req.params;
         const { username, password, rol } = req.body;
 
         const result = await pool.query(
             'UPDATE usuarios SET username = COALESCE($1, username), password = COALESCE($2, password), rol = COALESCE($3, rol) WHERE usuario_id = $4 RETURNING usuario_id, username, password, rol',
-            [username, password, rol, usuario_id]
+            [username, password, rol, id]
         );
         if (result.rows.length === 0)
             return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -68,10 +68,10 @@ const updateUsuario = async (req, res) => {
 //DELETE eliminar usuario
 const deleteUsuario = async (req, res) => {
     try {
-        const { usuario_id } = req.params;
+        const { id } = req.params;
         const result = await pool.query(
             'DELETE FROM usuarios WHERE usuario_id = $1 RETURNING usuario_id',
-            [usuario_id]
+            [id]
         );
         if (result.rows.length === 0)
             return res.status(404).json({ error: 'Usuario no encontrado' });
