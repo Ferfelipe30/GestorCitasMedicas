@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import heroImg from './assets/hero.png'
 import LoginPage from './pages/LoginPage'
+import CitaPage from './pages/CitaPage'
 
 const stats = [
   { value: '24/7', label: 'Urgencias' },
@@ -52,7 +53,7 @@ function HomePage() {
           <a href="#citas">Citas</a>
         </nav>
 
-        <a className="topbar-cta" href="#citas">
+        <a className="topbar-cta" href="/citas">
           Agendar cita
         </a>
         <a className="topbar-cta" href="/login">
@@ -196,8 +197,8 @@ function HomePage() {
             </p>
           </div>
 
-          <a className="btn btn-primary" href="mailto:recepcion@citygeneral.com">
-            Contactar recepción
+          <a className="btn btn-primary" href="/citas">
+            Agendar Cita
           </a>
         </section>
       </main>
@@ -214,6 +215,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/citas" element={<CitaPage />} />
     </Routes>
   )
 }
